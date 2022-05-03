@@ -7,4 +7,4 @@ import { IBcryptHash } from '@modules/user/providers/encrypt/bcryptHash/model/IB
 import { BcryptHash } from '@modules/user/providers/encrypt/bcryptHash/implementations/BcryptHash'
 
 container.registerSingleton<IUsersRepositories>('UsersRepositories', UsersRepositories)
-container.registerSingleton<IBcryptHash>('UsersRepositories', BcryptHash)
+container.registerSingleton<IBcryptHash>('BcryptHash', BcryptHash)
