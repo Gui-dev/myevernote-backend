@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
+import { usersRoutes } from '@modules/user/infra/http/routes/users.routes'
+
 const routes = Router()
 
-routes.get('/', (req, res) => {
-  return res.send('Hello World')
-})
+routes.use('/users', usersRoutes)
 
 export {
   routes
