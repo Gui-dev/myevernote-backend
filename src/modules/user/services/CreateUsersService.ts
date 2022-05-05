@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe'
-import { User } from '@prisma/client'
 
 import { ICreateUsersDTO } from '@modules/user/dtos/ICreateUsersDTO'
 import { IUsersRepositories } from '../repositories/IUsersRepositories'
-import { AppError } from '@shared/error/AppError'
 import { IBcryptHash } from '../providers/encrypt/bcryptHash/model/IBcryptHash'
+import { UserViewProps, userView } from '@modules/user/infra/http/views/UserView'
+import { AppError } from '@shared/error/AppError'
 
 @injectable()
 export class CreateUserService {
@@ -15,7 +15,7 @@ export class CreateUserService {
     private bcryptHash: IBcryptHash
   ) {}
 
-  public async execute ({ name, email, password }: ICreateUsersDTO): Promise<User> {
+  public async execute ({ name, email, password }: ICreateUsersDTO): Promise<UserViewProps> {
     const usersAlreadyExists = await this.usersRepositories.findUserByEmail(email)
 
     if (usersAlreadyExists) {
@@ -30,6 +30,8 @@ export class CreateUserService {
       password: passwordHash
     })
 
-    return user
+    const userFormatted = await userView(user)
+
+    return userFormatted
   }
 }
