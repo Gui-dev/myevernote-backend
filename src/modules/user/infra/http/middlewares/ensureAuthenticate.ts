@@ -7,8 +7,8 @@ import { AppError } from '@shared/error/AppError'
 
 type IPayload = JwtPayload & {
   iat: string
+  id: string
   exp: string
-  sub: string
 }
 
 export const ensureAuthenticate = async (request: Request, response: Response, next: NextFunction) => {
@@ -20,18 +20,19 @@ export const ensureAuthenticate = async (request: Request, response: Response, n
   }
 
   const [, token] = authHeader.split(' ')
-
+  console.log('Token: ', token)
   try {
     const decoded = verify(token, authConfig.SECRET)
-    const { sub } = decoded as IPayload
+    const { id } = decoded as IPayload
 
-    const user = await usersRepositories.findUserById(sub)
+    console.log('ID: ', decoded)
+    const user = await usersRepositories.findUserById(id)
 
     if (!user) {
       throw new AppError('User is not authorized, token missing', 401)
     }
 
-    request.userId = sub
+    request.userId = id
 
     return next()
   } catch {
