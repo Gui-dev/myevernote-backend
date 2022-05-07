@@ -25,7 +25,6 @@ export const ensureAuthenticate = async (request: Request, response: Response, n
     const decoded = verify(token, authConfig.SECRET)
     const { id } = decoded as IPayload
 
-    console.log('ID: ', decoded)
     const user = await usersRepositories.findUserById(id)
 
     if (!user) {
