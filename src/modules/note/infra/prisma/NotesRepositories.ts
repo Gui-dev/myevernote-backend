@@ -28,6 +28,31 @@ export class NotesRepositories implements INotesRepositories {
 
     return note
   }
+
+  public async listAllNotes (user_id: string): Promise<INoteResponseDTO[] | null> {
+    const notes = await prismaClient.note.findMany({
+      where: {
+        user_id
+      },
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        created_at: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            created_at: true
+          }
+        }
+      }
+    })
+
+    return notes
+  }
+
   public async createNote ({ user_id, title, body }: ICreateNoteDTO): Promise<INoteResponseDTO> {
     const note = await prismaClient.note.create({
       data: {
