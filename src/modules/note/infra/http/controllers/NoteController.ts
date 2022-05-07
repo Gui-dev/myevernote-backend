@@ -3,8 +3,17 @@ import { container } from 'tsyringe'
 
 import { CreateNotesService } from '@modules/note/services/CreateNotesService'
 import { LookingNoteByIdService } from '@modules/note/services/LookingNoteByIdService'
+import { ListNotesService } from '@modules/note/services/ListNotesService'
 
 export class NoteController {
+  public async index (request: Request, response: Response): Promise<Response> {
+    const user_id = request.userId
+    const listNotesService = container.resolve(ListNotesService)
+    const notes = await listNotesService.execute(user_id)
+
+    return response.status(201).json(notes)
+  }
+
   public async create (request: Request, response: Response): Promise<Response> {
     const user_id = request.userId
     const { title, body } = request.body
