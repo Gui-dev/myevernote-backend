@@ -20,7 +20,7 @@ export const ensureAuthenticate = async (request: Request, response: Response, n
   }
 
   const [, token] = authHeader.split(' ')
-  console.log('Token: ', token)
+
   try {
     const decoded = verify(token, authConfig.SECRET)
     const { id } = decoded as IPayload
