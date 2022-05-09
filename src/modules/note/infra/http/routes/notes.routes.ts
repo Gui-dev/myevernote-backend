@@ -9,5 +9,6 @@ const noteController = new NoteController()
 notesRouter.post('/', ensureAuthenticate, noteController.create)
 notesRouter.get('/', ensureAuthenticate, noteController.index)
 notesRouter.get('/:id', ensureAuthenticate, noteController.show)
+notesRouter.put('/:id', ensureAuthenticate, noteController.update)
 
 export { notesRouter }
