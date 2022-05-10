@@ -5,6 +5,7 @@ import { CreateNotesService } from '@modules/note/services/CreateNotesService'
 import { LookingNoteByIdService } from '@modules/note/services/LookingNoteByIdService'
 import { ListNotesService } from '@modules/note/services/ListNotesService'
 import { UpdateNoteService } from '@modules/note/services/UpdateNoteService'
+import { DeleteNoteService } from '@modules/note/services/DeleteNoteService'
 
 export class NoteController {
   public async index (request: Request, response: Response): Promise<Response> {
@@ -52,5 +53,14 @@ export class NoteController {
     )
 
     return response.status(201).json(note)
+  }
+
+  public async delete (request: Request, response: Response): Promise<Response> {
+    const user_id = request.userId
+    const { id } = request.params
+    const deleteNoteService = container.resolve(DeleteNoteService)
+    await deleteNoteService.execute(id, user_id)
+
+    return response.status(204).send()
   }
 }
