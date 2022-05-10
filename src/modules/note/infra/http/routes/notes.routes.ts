@@ -10,5 +10,6 @@ notesRouter.post('/', ensureAuthenticate, noteController.create)
 notesRouter.get('/', ensureAuthenticate, noteController.index)
 notesRouter.get('/:id', ensureAuthenticate, noteController.show)
 notesRouter.put('/:id', ensureAuthenticate, noteController.update)
+notesRouter.delete('/:id', ensureAuthenticate, noteController.delete)
 
 export { notesRouter }
