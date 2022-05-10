@@ -107,4 +107,12 @@ export class NotesRepositories implements INotesRepositories {
 
     return note
   }
+
+  public async deleteNoteById (id: string): Promise<void> {
+    await prismaClient.note.delete({
+      where: {
+        id
+      }
+    })
+  }
 }

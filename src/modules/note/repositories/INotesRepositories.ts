@@ -7,4 +7,5 @@ export interface INotesRepositories {
   lookingNoteById(id: string): Promise<INoteResponseDTO | null>
   listAllNotes(user_id: string): Promise<INoteResponseDTO[] | null>
   updateNoteById(data: IUpdateNoteDTO): Promise<INoteResponseDTO>
+  deleteNoteById(id: string): Promise<void>
 }
