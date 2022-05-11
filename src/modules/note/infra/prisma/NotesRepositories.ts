@@ -115,4 +115,33 @@ export class NotesRepositories implements INotesRepositories {
       }
     })
   }
+
+  public async searchNoteByWord (word: string, user_id: string): Promise<INoteResponseDTO[] | null> {
+    const notes = await prismaClient.note.findMany({
+      where: {
+        user_id,
+        AND: {
+          body: {
+            contains: word
+          }
+        }
+      },
+      select: {
+        id: true,
+        title: true,
+        body: true,
+        created_at: true,
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            created_at: true
+          }
+        }
+      }
+    })
+
+    return notes
+  }
 }

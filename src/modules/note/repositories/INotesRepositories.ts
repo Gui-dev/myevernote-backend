@@ -8,4 +8,5 @@ export interface INotesRepositories {
   listAllNotes(user_id: string): Promise<INoteResponseDTO[] | null>
   updateNoteById(data: IUpdateNoteDTO): Promise<INoteResponseDTO>
   deleteNoteById(id: string): Promise<void>
+  searchNoteByWord(word: string, user_id: string): Promise<INoteResponseDTO[] | null>
 }
