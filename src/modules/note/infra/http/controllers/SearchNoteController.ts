@@ -9,7 +9,7 @@ export class SearchNoteController {
     const { query } = request.query
     const searchNoteByWordService = container.resolve(SearchNoteByWordService)
     const notes = await searchNoteByWordService.execute(String(query), user_id)
-    console.log('Aqui')
+
     return response.status(201).json(notes)
   }
 }

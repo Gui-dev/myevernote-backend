@@ -13,8 +13,8 @@ export class SearchNoteByWordService {
 
   public async execute (word: string, user_id: string): Promise<INoteResponseDTO[]> {
     const notes = await this.notesRepositories.searchNoteByWord(word, user_id)
-    console.log('SEARCH')
-    if (!notes) {
+
+    if (!notes || notes?.length < 1 || notes === null) {
       throw new AppError('Error, note not found', 404)
     }
 
