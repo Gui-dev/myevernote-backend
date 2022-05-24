@@ -14,13 +14,13 @@ type IPayload = JwtPayload & {
 export const ensureAuthenticate = async (request: Request, response: Response, next: NextFunction) => {
   const authHeader = request.headers.authorization
   const usersRepositories = new UsersRepositories()
-
+ 
   if (!authHeader) {
     throw new AppError('User is not authorized, token missing', 401)
   }
 
   const [, token] = authHeader.split(' ')
-
+	
   try {
     const decoded = verify(token, authConfig.SECRET)
     const { id } = decoded as IPayload
@@ -38,3 +38,4 @@ export const ensureAuthenticate = async (request: Request, response: Response, n
     throw new AppError('Invalid Token', 401)
   }
 }
+
