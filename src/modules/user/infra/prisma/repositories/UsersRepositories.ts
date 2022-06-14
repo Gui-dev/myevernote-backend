@@ -3,7 +3,7 @@ import { User } from '@prisma/client'
 import { IUsersRepositories } from '@modules/user/repositories/IUsersRepositories'
 import { prismaClient } from '@shared/prisma'
 import { ICreateUsersDTO } from '@modules/user/dtos/ICreateUsersDTO'
-import { IUpdatePersonalInformation } from '@modules/user/dtos/IUpdatePersonalInformation'
+import { IUpdatePersonalInformationDTO } from '@modules/user/dtos/IUpdatePersonalInformationDTO'
 
 export class UsersRepositories implements IUsersRepositories {
   public async findUserById (id: string): Promise<User | null> {
@@ -37,7 +37,7 @@ export class UsersRepositories implements IUsersRepositories {
     return user
   }
 
-  public async updatePersonalInformation ({ id, name, email }: IUpdatePersonalInformation): Promise<User> {
+  public async updatePersonalInformation ({ id, name, email }: IUpdatePersonalInformationDTO): Promise<User> {
     const user = await prismaClient.user.update({
       where: {
         id
