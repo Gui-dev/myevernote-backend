@@ -4,6 +4,7 @@ import { IUsersRepositories } from '@modules/user/repositories/IUsersRepositorie
 import { prismaClient } from '@shared/prisma'
 import { ICreateUsersDTO } from '@modules/user/dtos/ICreateUsersDTO'
 import { IUpdatePersonalInformationDTO } from '@modules/user/dtos/IUpdatePersonalInformationDTO'
+import { IUpdateUserPasswordDTO } from '@modules/user/dtos/IUpdateUserPasswordDTO'
 
 export class UsersRepositories implements IUsersRepositories {
   public async findUserById (id: string): Promise<User | null> {
@@ -45,6 +46,19 @@ export class UsersRepositories implements IUsersRepositories {
       data: {
         name,
         email
+      }
+    })
+
+    return user
+  }
+
+  public async updateUserPassword ({ id, password }: IUpdateUserPasswordDTO): Promise<User> {
+    const user = await prismaClient.user.update({
+      where: {
+        id
+      },
+      data: {
+        password
       }
     })
 
